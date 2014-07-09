@@ -4,17 +4,17 @@ class ProductsController < ApplicationController
 	end
 
 	def index
-		@products = product.all 
+		@products = Product.all 
 	end
 
 	def new
-		@product = product.new
+		@product = Product.new
 	end
 	
 	def create
-		@product = product.new(product_params)
+		@product = Product.new(product_params)
 		if @product.save
-			redirect_to new_product_path
+			redirect_to product_path(@product)
 		else 
 			render :new
 		end
@@ -41,11 +41,11 @@ class ProductsController < ApplicationController
 	private
 	
 	def set_product
-		@product=product.find(params[:id])
+		@product = Product.find(params[:id])
 	end
 
 	def product_params
-		params.require(:product).permit(:name, :email, :password)
+		params.require(:product).permit(:name, :expirationdate, :user_id)
 	end
 
 end

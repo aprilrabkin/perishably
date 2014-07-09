@@ -1,2 +1,14 @@
-<h1>Products#new</h1>
-<p>Find me in app/views/products/new.html.erb</p>
+<h1>Add a Product</h1>
+<%=form_for @product do |f|%> 
+<%=f.label :name, "Item Name:" %>
+<br>
+<%=f.text_field :name, placeholder:"Item Name" %>
+<br>
+<%=f.label :expirationdate, "Expiration Date:" %>
+<br>
+<%=f.date_field :expirationdate %>
+<br>
+<br>
+<%=f.submit "Add Product" %>
+
+<%end%>
