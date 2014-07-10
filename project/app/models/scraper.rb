@@ -12,18 +12,8 @@ class Scraper
 	end
 	def parse(selector)
 		html = Nokogiri::HTML(@response)
-		html.css(selector).each do |element|
+		html.css(selector).map do |element|
 			yield element
 		end
 	end
 end
-
-scraper=Scraper.new("www.eatbydate.com/proteins/meats/bacon-shelf-life-expiration-date/")
-scraper.fetch
-info = scraper.parse('tr') do |r| print r.text end 
-binding.pry
-#attributes: 
-#opened boolean. default true
-#refrigerator, freezer, pantry, defaults to fridge
-#Expiration date for each of them. 
-#also bacon bits/cooked/fresh

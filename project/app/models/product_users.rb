@@ -1,2 +1,2 @@
-class ProductUsers < ActiveRecord::Base
+class ProductUsers < ActiveRecord::Base 
 end
