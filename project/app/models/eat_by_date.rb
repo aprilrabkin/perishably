@@ -1,11 +1,26 @@
 require_relative 'scraper'
 class EatByDate < Scraper
-lasagna_array = []
-scraper = Scraper.new("www.eatbydate.com/proteins/meats/bacon-shelf-life-expiration-date/")
-scraper.fetch
-key0 = scraper.parse('td strong') do |r| r.text.gsub("lasts", "") end
-tr = scraper.parse('td') do |r| r.text end
-print tr
+	lasagna_array = []
+	scraper = Scraper.new("www.eatbydate.com/grains/lasagna/")
+	noko = scraper.fetch
+	tablenoko = noko.css('#unopened')
+	#pick out the second th--this will be default pantry/fridge/freezer
+	#then take each tr and 
+	#find what's in strong = that's the product name
+	#find the second column = that's the time
+	products = []
+	storage_default = tablenoko.css('th')[1].text
+	tablenoko.css('tr').each do |tr| 
+		unless tr.css('td')[0] == nil || tr.css('td')[0].text == ""
+			product = {}
+			product["name"] = tr.css('strong').text
+			product["time"] = tr.css('td')[1].text
+			product["storage"] = storage_default
+			products << product
+		end
+	end
+					binding.pry
+
 end
 
 # lasagna_array = [ "Deli Lasagna" => { # html.css('td strong')
@@ -17,12 +32,3 @@ end
 # 		"freezer" => "6-8 months"  #html.css('th')[1] and html.css('td')[4]
 # 	}
 # ]
-# lasagna_array[0]['refrigeratro']="5-7days"
-
-# key1 = scraper.universalparse('td strong')[1] do |r| r.text.gsub("lasts", "") end 
-# key3 = scraper.universalparse('td strong')[2] do |r| r.text.gsub("lasts", "") end 
-# keya = scraper.universalparse('th')[1] do |r| r.text end 
-# keyb = scraper.universalparse('th')[2] do |r| r.text end 
-# value0 = scraper.universalparse('td')[0] do |r| r.text end
-# value1 = scraper.universalparse('td')[1] do |r| r.text end
-# value2 = scraper.universalparse('td')[2] do |r| r.text end
